@@ -10,12 +10,6 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-'''
-require python-devel.x86_64, psutil
-yum install python-devel.x86_64 -y
-pip install psutil
-'''
-
 
 def login_check():
     login = psutil.users()
@@ -57,7 +51,7 @@ if __name__ == "__main__":
         if ((time.time()-last_send_time) > 600) and send_message:
             content = "\r\n".join(send_message)
             print content
-            s.sendto(str(content), ('115.238.145.72', 40002))
+            s.sendto(str(content), ('xxx.xxx.xxx.xxx', 40002))
             last_send_time = time.time()
         send_message = []
         login = psutil.users()

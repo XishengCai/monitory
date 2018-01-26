@@ -79,17 +79,11 @@ if __name__ == "__main__":
     except OSError, e:
         print >>sys.stderr, "fork #1 failed: %d (%s)" % (e.errno, e.strerror)
         sys.exit(1)
-    # 修改子进程工作目录
     os.chdir("/")
-
-    # 创建新的会话，子进程成为会话的首进程
     os.setsid()
-
-    # 修改工作目录的umask
     os.umask(0)
 
     try:
-        # 创建孙子进程，而后子进程退出
         pid = os.fork()
         if pid > 0:
             # exit from second parent, print eventual PID before
@@ -98,10 +92,6 @@ if __name__ == "__main__":
     except OSError, e:
         print >>sys.stderr, "fork #2 failed: %d (%s)" % (e.errno, e.strerror)
         sys.exit(1)
-
-    # 刷新缓冲区先，小心使得万年船
     sys.stdout.flush()
     sys.stderr.flush()
-
-    # 孙子进程的程序内容
     main()
